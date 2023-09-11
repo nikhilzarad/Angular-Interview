@@ -41,7 +41,7 @@ return this.http.get('https://api.github.com/repositories');
 
 The above service uses Http service as a dependency.
 
-***What is dependency injection in Angular? ***
+**_What is dependency injection in Angular? _**
 
 It is a class asks for dependencies from external
 sources rather than creating them itself.
@@ -50,26 +50,26 @@ Dependency Injection is nothing but process of object creation into constructor 
 
 Means We create object of HttpClient into constructor as below is called Dependency Injection .
 
-***Example***
+**_Example_**
 
- WAY 1 - in service
- import { HttpClient} from '@angular/common/http';  
+WAY 1 - in service
+import { HttpClient} from '@angular/common/http';  
  @Injectable({  
-   providedIn: 'root',  
+ providedIn: 'root',  
  })  
  export class MasterService {  
-   constructor(private http: HttpClient) { } = > this is Dependency Injection 
- }
- WAY 2 - in component
+ constructor(private http: HttpClient) { } = > this is Dependency Injection
+}
+WAY 2 - in component
 
- import { MasterService} from './master.service';  
+import { MasterService} from './master.service';  
  @Component({  
-   selector: 'app-root',  
-   templateUrl: './app.component.html',  
+ selector: 'app-root',  
+ templateUrl: './app.component.html',  
  })  
  export class AppComponent {  
-    constructor(private master: MasterService){ } - > this is also depedency injection
- } 
+ constructor(private master: MasterService){ } - > this is also depedency injection
+}
 
 ## observable & observer
 
@@ -133,10 +133,9 @@ source.subscribe(myObserver);
 > Observer got a next value: 5
 > Observer got a complete notification
 
+**_What is the difference between promise and observable? _**
 
-***What is the difference between promise and observable? ***
-
-**Observable** :Declarative: An Observable instance begins publishing values 
+**Observable** :Declarative: An Observable instance begins publishing values
 only when someone subscribes to it.
 **Promise**:Execute immediately on creation
 
@@ -146,8 +145,7 @@ only when someone subscribes to it.
 **Observable**: Subscribe method is used for error handling
 **Promise**:Push errors to the child promises
 
-
-***How do you perform error handling in observables?***
+**_How do you perform error handling in observables?_**
 
 You can handle errors by define an error callback on the observer
 instead of try/catch Method
@@ -156,14 +154,13 @@ instead of try/catch Method
 
 myObservable.subscribe({
 
- next(num) { console.log('Next num: ' + num)},
+next(num) { console.log('Next num: ' + num)},
 
- error(err) { console.log('Received an errror: ' + err)}});
-
+error(err) { console.log('Received an errror: ' + err)}});
 
 ## RxJS
 
-***What is RxJS? ***r
+**_What is RxJS? _**r
 
 RxJS is a library for Write asynchronous and callback-based code
 in a functional, reactive style using Observables.
@@ -180,64 +177,59 @@ HttpClient as below,
 import { Observable, throwError } from 'rxjs';import { catchError, retry }
 from 'rxjs/operators';
 
-
-***What are the utility functions provided by RxJS?***
+**_What are the utility functions provided by RxJS?_**
 
 i. Converting existing code for async operations into observables
 ii. Iterating through the values in a stream
 iii.Mapping values to different types
 iv. Filtering streams
 
-
-***what is an rxjs subject in Angular***
+**_what is an rxjs subject in Angular_**
 
 An RxJS Subject is a special type of Observable that allows values to be
 multicasted to many Observers While plain Observables are unicast
 
-A Subject is like an Observable, but can multicast to many Observers. 
+A Subject is like an Observable, but can multicast to many Observers.
 
 import { Subject } from 'rxjs';
- const subject = new Subject<number>();
- subject.subscribe({
- next: (v) => console.log(`observerA: ${v}`)
- });
- subject.subscribe({
- next: (v) => console.log(`observerB: ${v}`)
- });
-
-
+const subject = new Subject<number>();
+subject.subscribe({
+next: (v) => console.log(`observerA: ${v}`)
+});
+subject.subscribe({
+next: (v) => console.log(`observerB: ${v}`)
+});
 
 ## HttpClient
 
-***What is HttpClient and its benefits?***
+**_What is HttpClient and its benefits?_**
 
 Most of the Front-end applications communicate with backend services
 over HTTP protocol using either XMLHttpRequest interface or the fetch() API.
 
 import { HttpClientModule } from '@angular/common/http';
 
-
-***Explain on how to use HttpClient with an example?***
-
+**_Explain on how to use HttpClient with an example?_**
 
 > Import HttpClient into root module:
 
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
- imports: [
- BrowserModule,
- > import HttpClientModule after BrowserModule.
- HttpClientModule,
- ],
- ......
- })
+imports: [
+BrowserModule,
+
+> import HttpClientModule after BrowserModule.
+> HttpClientModule,
+> ],
+> ......
+> })
 
 export class AppModule {}
 
 > Inject the HttpClient into the application: Let's
-create a userProfileService(userprofile.service.ts) as an example. It also defines get method of
-HttpClient
+> create a userProfileService(userprofile.service.ts) as an example. It also defines get method of
+> HttpClient
 
 import { Injectable } from '@angular/core';import { HttpClient }
 from '@angular/common/http';
@@ -246,38 +238,21 @@ const userProfileUrl: string = 'assets/data/profile.json';
 
 @Injectable()export class UserProfileService {
 
+constructor(private http: HttpClient) { }
 
- constructor(private http: HttpClient) { }
-
-
- getUserProfile() {
- return this.http.get(this.userProfileUrl);
- }}
-
+getUserProfile() {
+return this.http.get(this.userProfileUrl);
+}}
 
 > Create a component for subscribing service: Let's
-create a component called UserProfileComponent(userprofile.component.ts) which inject UserProfileService and invokes the service method,
-
+> create a component called UserProfileComponent(userprofile.component.ts) which inject UserProfileService and invokes the service method,
 
 fetchUserProfile() {
- this.userProfileService.getUserProfile()
- .subscribe((data: User) => this.user = {
- id: data['userId'],
- name: data['firstName'],
- city: data['city']
- });}
-
+this.userProfileService.getUserProfile()
+.subscribe((data: User) => this.user = {
+id: data['userId'],
+name: data['firstName'],
+city: data['city']
+});}
 
 > Since the above service method returns an Observable which needs to be subscribed in the component.
-
-
-
-
-
-
-
-
-
-
-
-
