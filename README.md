@@ -504,11 +504,13 @@ will add CSS classes when this link is active and and remove when the
 link is inactive. For example, you can add them to RouterLinks as below
 
 
-<nav>
+
  <a routerLink="/todosList" routerLinkActive="active">List of
 todos</a>
  <a routerLink="/completed" routerLinkActive="active">Completed
-todos</a></nav><router-outlet></router-outlet>
+todos</a>
+<router-outlet></router-outlet>
+
 
 **_What is router state? _**
 
