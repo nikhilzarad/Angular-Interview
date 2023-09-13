@@ -456,14 +456,13 @@ export class PipeListComponent {
 greeting: string[] = ['h', 'e', 'l', 'l', 'o', 'm','o', 'r', 'n', 'i',
 'n', 'g'];}
 
-
 ## Angular Router
 
-***What is Angular Router?***
- 
- Angular Router is a mechanism in which navigation happens from one view to the next as users perform application tasks.
+**_What is Angular Router?_**
 
-***What are the router imports?***
+Angular Router is a mechanism in which navigation happens from one view to the next as users perform application tasks.
+
+**_What are the router imports?_**
 
 The Angular Router which represents a particular component view for a
 given URL is not part of Angular Core. It is available in library
@@ -471,14 +470,75 @@ named @angular/router to import required router components.
 
 import { RouterModule, Routes } from '@angular/router';
 
-***What is router outlet? ***
+**_What is router outlet? _**
 
 The RouterOutlet is a directive from the router library and it acts as a
 placeholder that marks the spot in the template where the router
 should display the components for that outlet. Router outlet is used like
 a component,
 
- <router-outlet></router-outlet>
+<.router-outlet></.router-outlet>
 
-<!-- Routed components go here -->
+<!-- Routed components go here & ignore Dot-->
 
+**_What are router links?_**
+
+The RouterLink is a directive on the anchor tags give the router control over those elements
+
+Since the navigation paths are fixed, you can
+assign string values to router-link directive as below, 3.
+
+<h1>Angular Router</h1><nav>
+ <a routerLink="/todosList" >List of todos</a>
+ <a routerLink="/completed" >Completed
+todos</a></nav>
+
+> ignore Dot
+> <.router-outlet></.router-outlet>
+
+**_What are active router links?_**
+
+RouterLinkActive is a directive that toggles css classes for active
+RouterLink bindings based on the current RouterState. i.e, the Router
+will add CSS classes when this link is active and and remove when the
+link is inactive. For example, you can add them to RouterLinks as below
+
+<h1>Angular Router</h1><nav>
+ <a routerLink="/todosList" routerLinkActive="active">List of
+todos</a>
+ <a routerLink="/completed" routerLinkActive="active">Completed
+todos</a></nav><router-outlet></router-outlet>
+
+**_What is router state? _**
+
+RouterState is a tree of activated routes.
+You can access the current RouterState from
+anywhere in the application using the Router service and the routerState property
+
+@Component({templateUrl:'template.html'})
+
+class MyComponent {
+
+constructor(router: Router) {
+
+const state: RouterState = router.routerState;
+const root: ActivatedRoute = state.root;
+const child = root.firstChild;
+const id: Observable<string> = child.params.map(p => p.id);
+//...
+}}
+
+**_What are router events? _**
+
+During each navigation, the Router emits navigation events through the
+Router.events property allowing you to track the lifecycle of the route.
+
+**_What is the purpose of Wildcard route?_**
+
+If the URL doesn't match any predefined routes then it causes the
+router to throw an error and crash the app. In this case, you can use
+wildcard route.
+
+For example, you can define PageNotFoundComponent for wildcard route as below
+
+{ path: '\*\*', component: PageNotFoundComponent }
