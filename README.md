@@ -488,7 +488,7 @@ The RouterLink is a directive on the anchor tags give the router control over th
 Since the navigation paths are fixed, you can
 assign string values to router-link directive as below, 3.
 
-<h1>Angular Router</h1><nav>
+<nav>
  <a routerLink="/todosList" >List of todos</a>
  <a routerLink="/completed" >Completed
 todos</a></nav>
@@ -503,7 +503,8 @@ RouterLink bindings based on the current RouterState. i.e, the Router
 will add CSS classes when this link is active and and remove when the
 link is inactive. For example, you can add them to RouterLinks as below
 
-<h1>Angular Router</h1><nav>
+
+<nav>
  <a routerLink="/todosList" routerLinkActive="active">List of
 todos</a>
  <a routerLink="/completed" routerLinkActive="active">Completed
