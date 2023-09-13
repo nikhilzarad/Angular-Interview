@@ -257,6 +257,44 @@ city: data['city']
 
 > Since the above service method returns an Observable which needs to be subscribed in the component.
 
+**_HTTP Interceptors_**
+
+Interceptors are sitting in between your application and the backend. By using interceptors you can transform a request coming from the application before it is actually submitted to the backend. The same is possible for responses. If a response arrives from the backend the interceptor can transform that response before it arrives in your application.
+
+**_HttpReuest_**
+
+**GET**
+
+HttpClient.get() method returns an Observable and lets you read the data from the server.
+
+getUsers(): Observable<User> {
+return this.http.get<User>(this.url);
+}
+
+**POST**
+
+We must send a user object to server to post the user details. Hence, HttpClient.post() takes an argument user along with the url where the request body is to be sent and the headers (httpOptions)
+
+postUsers(user): Observable<User> {
+return this.http.post<User>(this.url, user, this.httpOptions);
+}
+
+**PUT**
+This method is almost similar to post(). I’m updating a user record based on the id field. Hence, a new url is to be constructed based on userId so that no other objects are disturbed.
+
+updateUser(userId, user): Observable<User> {
+const putUrl = this.url + '/' + userId;
+return this.http.put<User>(putUrl, user, this.httpOptions);
+}
+
+**DELETE**
+I’m deleting a user object by capturing the userId. So, construct a new url which deletes the specific user based on the id.
+
+deleteUser(userId): Observable<{}> {
+const deleteUrl = this.url + '/' + userId;
+return this.http.delete(deleteUrl, this.httpOptions);
+}
+
 ## Angular Pipes
 
 **_What are pipes? _**
@@ -267,6 +305,7 @@ For example, let us take a pipe to transform a component's birthday
 property into a human-friendly date using date pipe.
 
 import { Component } from '@angular/core';
+
 @Component({
 selector: 'app-birthday',
 template: `<p>Birthday is {{ birthday | date }}</p>`})export class
@@ -313,7 +352,106 @@ return (size / (1024 \* 1024)).toFixed(2) + extension;
 }
 }
 
+> tofixed use for round the the result upto two decimal
+
 ii.
 Now you can use the above pipe in template expression as
-below, javascript template: `<h2>Find the size of a file</h2> <p>Size:
+below, javascript template:
+
+`<h2>Find the size of a file</h2> <p>Size:
 {{288966 | customFileSizePipe: 'GB'}}</p>`
+
+**_What is a parameterized pipe? _**
+
+The parameterized pipe can be created by declaring the pipe name with a colon ( : ) and then the parameter value. If the pipe accepts
+multiple parameters, separate the values with colons.
+
+Let's take a
+birthday example with a particular format(dd/MM/yyyy):
+
+import { Component } from '@angular/core';
+
+@Component({
+selector: 'app-birthday',
+template: `<p>Birthday is {{ birthday | date:'dd/MM/yyyy'}}</p>`
+
+> 18/06/1987
+> })
+
+export class BirthdayComponent {
+birthday = new Date(1987, 6, 18);
+}
+
+**_How do you chain pipes? _**
+
+You can chain pipes together combinations of pipes as per the needs.
+
+Let's take a birthday property which uses date pipe(along
+with parameter) and uppercase pipes as below
+
+import { Component } from '@angular/core';
+
+@Component({
+selector: 'app-birthday',
+template: `<p>Birthday is {{ birthday | date:'fullDate' |
+uppercase}} </p>`
+
+> THURSDAY, JUNE 18, 1987
+> })
+> export class BirthdayComponent {
+> birthday = new Date(1987, 6, 18);
+> }
+
+**_What is the purpose of async pipe? _**
+
+The AsyncPipe subscribes to an observable or promise and returns the
+latest value it has emitted. When a new value is emitted, the pipe marks
+the component to be checked for changes
+
+**_Exapmle_**
+
+Let's take a time observable which continuously updates the view for
+every 2 seconds with the current time
+
+@Component({
+selector: 'async-observable-pipe',
+template: `<div><code>observable|async</code>: Time: {{ time |
+async }}</div>`})
+
+export class AsyncObservablePipeComponent {
+time = new Observable(observer =>
+setInterval(() => observer.next(new Date().toString()), 2000)
+);}
+
+**_What is the difference between pure and impure pipe? _**
+**pure pipe**
+A pure pipe is only called when Angular detects a change in the
+value or the parameters passed to a pipe.
+
+For example, any changes to a primitive input value (String, Number, Boolean,Symbol) or a changed object reference (Date, Array, Function,
+Object).
+
+**Impure Pipe**
+
+An impure pipe is called for every change detection cycle no matter whether the value or parameters changes.
+For example,
+
+An impure pipe is called often, as often as every keystroke or mouse-move.
+
+**_What is slice pipe? _**
+
+The slice pipe is used to create a new Array or String containing a
+subset (slice) of the elements from the existing array or string.
+
+{{ value_expression | slice : start [ : end ] }}
+
+For example, you can provide 'hello' list based on a greeting array,
+
+@Component({
+selector: 'list-pipe',
+template: `<ul> <li *ngFor="let i of greeting |
+slice:0:5">{{i}}</li> </ul>`})
+
+export class PipeListComponent {
+greeting: string[] = ['h', 'e', 'l', 'l', 'o', 'm','o', 'r', 'n', 'i',
+'n', 'g'];}
