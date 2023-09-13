@@ -256,3 +256,64 @@ city: data['city']
 });}
 
 > Since the above service method returns an Observable which needs to be subscribed in the component.
+
+## Angular Pipes
+
+**_What are pipes? _**
+
+A pipe takes in data as input and transforms it to a desired output.
+
+For example, let us take a pipe to transform a component's birthday
+property into a human-friendly date using date pipe.
+
+import { Component } from '@angular/core';
+@Component({
+selector: 'app-birthday',
+template: `<p>Birthday is {{ birthday | date }}</p>`})export class
+BirthdayComponent {
+birthday = new Date(1987, 6, 18);
+
+> June 18, 1987}
+
+**_What is a custom pipe? _**
+
+Apart from built-inn pipes, you can write your own custom pipe
+
+i. A pipe is a class decorated with pipe
+metadata @Pipe decorator, which you import from
+the core Angular library For example,
+@Pipe({name: 'myCustomPipe'})
+
+ii. The pipe class implements
+the PipeTransform interface's transform method
+that accepts an input value followed by optional
+parameters and returns the transformed value.
+
+interface PipeTransform {
+transform(value: any, ...args: any[]): any}
+
+iv. The @Pipe decorator allows you to define the pipe
+name that you'll use within template expressions. It
+must be a valid JavaScript identifier.
+
+template: `{{someInputValue | myCustomPipe: someOtherValue}}`
+
+**_example of custom pipe? _**
+
+let us create a custom pipe for finding file size
+
+i.
+t import { Pipe, PipeTransform } from
+'@angular/core';
+
+@Pipe({name: 'customFileSizePipe'})
+export class FileSizePipe implements PipeTransform {
+transform(size: number, extension: string = 'MB'): string {
+return (size / (1024 \* 1024)).toFixed(2) + extension;
+}
+}
+
+ii.
+Now you can use the above pipe in template expression as
+below, javascript template: `<h2>Find the size of a file</h2> <p>Size:
+{{288966 | customFileSizePipe: 'GB'}}</p>`
