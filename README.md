@@ -478,6 +478,7 @@ placeholder that marks the spot in the template where the router
 should display the components for that outlet. Router outlet is used like
 a component,
 
-<router-outlet></router-outlet>
+ <router-outlet></router-outlet>
+
 <!-- Routed components go here -->
 
