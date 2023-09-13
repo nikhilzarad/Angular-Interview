@@ -455,3 +455,29 @@ slice:0:5">{{i}}</li> </ul>`})
 export class PipeListComponent {
 greeting: string[] = ['h', 'e', 'l', 'l', 'o', 'm','o', 'r', 'n', 'i',
 'n', 'g'];}
+
+
+## Angular Router
+
+***What is Angular Router?***
+ 
+ Angular Router is a mechanism in which navigation happens from one view to the next as users perform application tasks.
+
+***What are the router imports?***
+
+The Angular Router which represents a particular component view for a
+given URL is not part of Angular Core. It is available in library
+named @angular/router to import required router components.
+
+import { RouterModule, Routes } from '@angular/router';
+
+***What is router outlet? ***
+
+The RouterOutlet is a directive from the router library and it acts as a
+placeholder that marks the spot in the template where the router
+should display the components for that outlet. Router outlet is used like
+a component,
+
+<router-outlet></router-outlet>
+<!-- Routed components go here -->
+
